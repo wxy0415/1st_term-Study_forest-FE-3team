@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import App from "./App";
 import TodatHabitPage from "./pages/TodayHabitPage/TodayHabitPage";
 
-function Main() {
+export default function Main() {
   return (
     <BrowserRouter>
       <Routes>
