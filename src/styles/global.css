@@ -1,0 +1,27 @@
+html {
+  font-size: 62.5%;
+}
+
+* {
+  margin: 0px;
+  padding: 0px;
+  outline: none;
+  font-family: "Pretendard";
+}
+
+:root {
+  --header-height: 10rem;
+  --dark-green-color: #578246;
+  --gray300-color: #818181;
+  --gray700-color: #414141;
+  --gray800-color: #212121;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+main {
+  margin: 0 auto;
+}

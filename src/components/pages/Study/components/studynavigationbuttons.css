@@ -1,0 +1,11 @@
+.StudyNavigationButtons {
+  width: 30.4rem;
+  height: 4.8rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.StudyNavigationButton {
+  width: 11.4rem;
+  height: 4.8rem;
+}
