@@ -40,7 +40,7 @@ function ListBody({ habit }) {
   );
 }
 
-function HabitsList({ studyId, patchList }) {
+function HabitsList({ studyId, patchList, pageRender, setPageRender }) {
   const [list, setList] = useState([]);
 
   // 첫 랜더링 시 실행
@@ -49,8 +49,14 @@ function HabitsList({ studyId, patchList }) {
       const data = await gethabitList(studyId);
       setList(data.habits);
     };
-    getList();
-  }, [studyId]);
+    if (!list[0]) {
+      getList();
+    } else if (pageRender) {
+      getList();
+      setPageRender(false);
+    }
+
+  }, [studyId, list, pageRender, setPageRender]);
 
   return (
     <div>

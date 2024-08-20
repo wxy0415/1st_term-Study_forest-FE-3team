@@ -17,11 +17,12 @@ function TodatHabitPage() {
     }
   };
 
+
   return (
     <>
       <CurrentTime />
-      <HabitsList studyId={studyId} patchList={patchListHandler}/>
-      <ListModal studyId={studyId} modalState={modalOn} patchList={patchListHandler}/>
+      <HabitsList studyId={studyId} patchList={patchListHandler} pageRender={pageRender} setPageRender={setPageRender}/>
+      <ListModal studyId={studyId} modalState={modalOn} patchList={patchListHandler} setPageRender={setPageRender}/>
     </>
   );
 }

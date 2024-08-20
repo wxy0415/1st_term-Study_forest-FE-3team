@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { deleteHabit, gethabitList, postHabit } from "../../../api/api";
 import trashCanImg from "../../../assets/imeges/trashCanImg.png";
 
-function ListModalBody({ habit, deleteRnder }) {
+function ListModalBody({ habit, setReRender }) {
   const habitId = habit.id;
 
   const deleteHabitHandler = async () => {
     await deleteHabit(habitId);
-    deleteRnder();
+    setReRender(true);
   };
 
   return (
@@ -18,17 +18,23 @@ function ListModalBody({ habit, deleteRnder }) {
   );
 }
 
-function ListModal({ studyId, modalState, patchList }) {
+function ListModal({ studyId, modalState, patchList, setPageRender }) {
   const [list, setList] = useState([]);
   const [postInput, setPostInput] = useState(false);
   const [value, setValue] = useState({ name: "" });
   const [reRender, setReRender] = useState(false);
+  const [dummy, setDummy] = useState([]);
 
   useEffect(() => {
     const getList = async () => {
       const data = await gethabitList(studyId);
       setList(data.habits);
+
+      if(!dummy[0]) {
+        setDummy(data.habits)
+      }
     };
+
     if (!list[0] && modalState) {
       getList();
     } else if (reRender) {
@@ -36,7 +42,7 @@ function ListModal({ studyId, modalState, patchList }) {
       setReRender(false);
       setValue({ name: "" });
     }
-  }, [studyId, modalState, list, reRender]);
+  }, [studyId, modalState, list, reRender, dummy]);
 
   // value와 input 값 일치 함수
   const postValueHandler = (e) => {
@@ -60,9 +66,14 @@ function ListModal({ studyId, modalState, patchList }) {
       await postHabit(studyId, value);
       setReRender(true);
       setPostInput(false);
+      setPageRender(true);
     } else {
       patchList();
       setPostInput(false);
+      if (dummy !== list) {
+        setPageRender(true);
+        setDummy(list)
+      }
     }
   };
 
@@ -70,11 +81,10 @@ function ListModal({ studyId, modalState, patchList }) {
   const cencelHandler = () => {
     patchList();
     setPostInput(false);
-  };
-
-  // 삭제 시 재로딩 함수
-  const deleteRnder = () => {
-    setReRender(true);
+    if (dummy !== list) {
+      setPageRender(true);
+      setDummy(list)
+    }
   };
 
   return (
@@ -86,7 +96,7 @@ function ListModal({ studyId, modalState, patchList }) {
             {list.map((habit) => {
               return (
                 <li key={habit.id}>
-                  <ListModalBody habit={habit} deleteRnder={deleteRnder} />
+                  <ListModalBody habit={habit} setReRender={setReRender} />
                 </li>
               );
             })}
