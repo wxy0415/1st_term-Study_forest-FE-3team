@@ -40,7 +40,7 @@ function ListBody({ habit }) {
   );
 }
 
-function HabitsList({ studyId }) {
+function HabitsList({ studyId, patchList }) {
   const [list, setList] = useState([]);
 
   // 첫 랜더링 시 실행
@@ -56,7 +56,7 @@ function HabitsList({ studyId }) {
     <div>
       <div>
         <p>오늘의 습관</p>
-        <p>목록 수정</p>
+        <p onClick={patchList}>목록 수정</p>
       </div>
       {!list[0] && (
         <div>아직 습관이 없어요 목록 수정을 눌러 습관을 생성해보세요</div>
