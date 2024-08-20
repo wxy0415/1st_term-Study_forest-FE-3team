@@ -15,7 +15,7 @@ const postSuccess = async (habitId) => {
 };
 
 const deleteSuccess = async (habitSuccessId) => {
-  const res = await instance.delete(`/successed/${habitSuccessId}`);
+  const res = await instance.delete(`/success/${habitSuccessId}`);
   return res.data;
 };
 
