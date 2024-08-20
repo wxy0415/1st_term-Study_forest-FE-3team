@@ -1,3 +1,9 @@
+import axios from "axios";
+import { useState, useEffect } from "react";
+
+import "./habitrecord.css";
+
+import { API_ADDRESS } from "../../../../constants/global";
 import { TIME_GAP_OF_DB } from "../../../../constants/global";
 import { ReactComponent as StickerEmpty } from "../../../../assets/images/sticker_empty.svg";
 import { ReactComponent as Sticker01 } from "../../../../assets/images/sticker_light_green_100_01.svg";
@@ -18,6 +24,13 @@ import { ReactComponent as Sticker15 } from "../../../../assets/images/sticker_y
 import { ReactComponent as Sticker16 } from "../../../../assets/images/sticker_pink_100_16.svg";
 import { ReactComponent as Sticker17 } from "../../../../assets/images/sticker_pink_200_17.svg";
 import { ReactComponent as Sticker18 } from "../../../../assets/images/sticker_pink_300_18.svg";
+
+const instance = axios.create({
+  baseURL: API_ADDRESS,
+  header: {
+    "Content-Type": "application/json",
+  },
+});
 
 const stickers = [
   <StickerEmpty />,
@@ -44,29 +57,64 @@ const stickers = [
 function HabitMark({ type }) {
   let svg = stickers[type];
 
-  return <>{svg}</>;
+  return <div className="habitrecord__table-habitsuccess">{svg}</div>;
 }
 
-function HabitWeekRecord({ stickerType = 1, successIndices = [] }) {
+function HabitWeekRecord({
+  habitName = "습관 이름",
+  stickerType = 0,
+  successIndices = [],
+}) {
+  stickerType = (stickerType % 18) + 1;
+
+  console.log(successIndices);
+
   const weekRecord = [
-    <HabitMark type="0" />,
-    <HabitMark type="0" />,
-    <HabitMark type="0" />,
-    <HabitMark type="0" />,
-    <HabitMark type="0" />,
-    <HabitMark type="0" />,
-    <HabitMark type="0" />,
+    <HabitMark key="0" type="0" />,
+    <HabitMark key="1" type="0" />,
+    <HabitMark key="2" type="0" />,
+    <HabitMark key="3" type="0" />,
+    <HabitMark key="4" type="0" />,
+    <HabitMark key="5" type="0" />,
+    <HabitMark key="6" type="0" />,
   ];
   successIndices.map((item) => {
-    weekRecord[item] = <HabitMark type={stickerType} />;
+    weekRecord[item] = <HabitMark key={item} type={stickerType} />;
   });
 
   return (
     <div className="flex-row">
-      <p>습관 이름</p>
-      {weekRecord}
+      <div className="habitrecord__table-habitname">{habitName}</div>
+      <div className="flex-row habitrecord__table-habitsuccesses">
+        {weekRecord}
+      </div>
     </div>
   );
+}
+
+function HabitWeekRecords({ totalCount, habits }) {
+  let data = null;
+
+  if (totalCount) {
+    data = habits.map((habit, index) => {
+      return (
+        <HabitWeekRecord
+          key={index}
+          habitName={habit.name}
+          stickerType={index}
+          successIndices={habit.success}
+        />
+      );
+    });
+  } else {
+    data = (
+      <p>
+        아직 습관이 업어요 <br /> 오늘의 습관에서 습관을 생성해보세요
+      </p>
+    );
+  }
+
+  return data;
 }
 
 function Dates() {
@@ -86,21 +134,39 @@ function Dates() {
     };
   }
 
-  const marks = recentOneWeek.map((date) => {
+  const marks = recentOneWeek.map((date, index) => {
     const mark = `${date.date} (${date.day})`;
-    return <div>{mark}</div>;
+    return (
+      <div key={index} className="habitrecord__title-day">
+        {mark}
+      </div>
+    );
   });
 
-  return <div className="flex-row">{marks}</div>;
+  return <div className="flex-row habitrecord__title-days">{marks}</div>;
 }
 
-export function HabitRecord() {
+export function HabitRecord({ studyId }) {
+  const [habits, setHabits] = useState([]);
+  const [totalCount, setTotalCount] = useState(0);
   const tempSuccess = [1, 4];
+
+  const path = `/study/${studyId}/HabitData`;
+
+  useEffect(() => {
+    instance.get(path).then((res) => {
+      setTotalCount(res.data.totalHabit);
+      setHabits(res.data.habits);
+    });
+  }, []);
+
   return (
-    <div>
-      <div>습관 기록표</div>
-      <Dates />
-      <HabitWeekRecord stickerType="1" successIndices={tempSuccess} />
+    <div className="study__habits habitrecord">
+      <div className="habitrecord__title">습관 기록표</div>
+      <div className="habitrecord__table">
+        <Dates />
+        <HabitWeekRecords totalCount={totalCount} habits={habits} />
+      </div>
     </div>
   );
 }

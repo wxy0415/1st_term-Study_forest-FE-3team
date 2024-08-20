@@ -1,0 +1,42 @@
+.modalframe {
+  width: 64.8rem;
+  height: 36.9rem;
+  margin: auto;
+  font-size: 1rem;
+  border-radius: 2em;
+  position: relative;
+}
+
+.modal__studyname {
+  margin-top: 4rem;
+  justify-self: center;
+}
+
+.modal__message {
+  margin: 0 auto;
+  margin-top: 2.8rem;
+}
+
+.modal__password {
+  width: 60rem;
+}
+
+.modal__btn-confirm {
+  width: 60rem;
+  height: 5.8rem;
+  background-image: url("../../../../assets/images/btn_confirm.svg");
+}
+
+.modal__btn-edit {
+  width: 60rem;
+  height: 5.8rem;
+  background-image: url("../../../../assets/images/btn_toEdit.svg");
+}
+
+.modal__btn-habit {
+  background-image: url("../../../../assets/images/btn_toHabit.svg");
+}
+
+.modal__btn-concentration {
+  background-image: url("../../../../assets/images/btn_toConcentration.svg");
+}

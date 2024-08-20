@@ -1,0 +1,36 @@
+.main {
+  margin-top: var(--header-height);
+  width: 112rem;
+}
+
+.study__topbar {
+  width: 112rem;
+  height: 3.1rem;
+  margin-top: 4rem;
+  align-items: center;
+  justify-content: space-between;
+  background-color: aqua;
+}
+
+.study__middlebar {
+  width: 112rem;
+  height: 4.8rem;
+  margin-top: 2.4rem;
+  align-items: center;
+  justify-content: space-between;
+  background-color: aqua;
+}
+
+.study__description {
+  width: 112rem;
+  margin-top: 1.6rem;
+  background-color: aqua;
+}
+
+.study__point {
+  margin-top: 2.4rem;
+}
+
+.study__habits {
+  margin-top: 3.6rem;
+}

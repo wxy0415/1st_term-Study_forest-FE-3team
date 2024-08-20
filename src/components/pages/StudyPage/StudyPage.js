@@ -1,6 +1,6 @@
 import StudyBody from "./components/StudyBody";
 
-export function Study() {
+export function StudyPage() {
   return (
     <>
       <StudyBody />
@@ -8,4 +8,4 @@ export function Study() {
   );
 }
 
-export default Study;
+export default StudyPage;

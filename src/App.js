@@ -1,11 +1,11 @@
 import logo from "./logo.svg";
 import "./styles/global.css";
-import Study from "./components/pages/Study/Study";
+import StudyPage from "./components/pages/StudyPage/StudyPage";
 
 function App() {
   return (
     <>
-      <Study />
+      <StudyPage />
     </>
   );
 }

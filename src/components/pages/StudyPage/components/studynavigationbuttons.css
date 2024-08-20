@@ -8,4 +8,9 @@
 .StudyNavigationButton {
   width: 11.4rem;
   height: 4.8rem;
+  box-sizing: border-box;
+  border: 0.1rem;
+  border-color: var(--gainsboro);
+  border-radius: 2rem;
+  color: var(--gray);
 }
