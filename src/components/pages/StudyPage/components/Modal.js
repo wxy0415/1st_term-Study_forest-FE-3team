@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import "./Modal.css";
@@ -13,32 +14,6 @@ const instance = axios.create({
   },
 });
 
-/** 스터디 삭제 modal 창 통과 후 로직 : DELETE API 사용 & 홈페이지로 이동 */
-function afterDeleteStudyModalPass() {
-  const path = "/study";
-
-  instance
-    .delete(path)
-    .then((res) => {
-      if (res.status === 204) {
-        alert("삭제 완료 & 홈 페이지로 이동 로직 추가 예정");
-      }
-    })
-    .catch((err) => alert(err.name));
-}
-
-function afterEditStudyModalPass() {
-  alert("수정 페이지로 이동 로직 추가 예정");
-}
-
-function afterGotoHabitModalPass() {
-  alert("오늘의 습관 페이지로 이동 로직 추가 예정");
-}
-
-function afterGotoConcentrationModalPass() {
-  alert("오늘의 집중 페이지오 이동 로직 추가 예정");
-}
-
 export function Modal({ studyName, isOpen, onClose, modalType }) {
   const [inputValue, setInputValue] = useState("");
   const [isIncorrectPasswordWarnOpen, setIsIncorrectPasswordWarnOpen] =
@@ -49,6 +24,7 @@ export function Modal({ studyName, isOpen, onClose, modalType }) {
     "modal__password-input-visible-off"
   );
   const dialogRef = useRef(null);
+  const navigate = useNavigate();
 
   const afterModalPass = [
     afterDeleteStudyModalPass,
@@ -65,6 +41,32 @@ export function Modal({ studyName, isOpen, onClose, modalType }) {
     "modal__btn-habit",
     "modal__btn-concentration",
   ];
+
+  /** 스터디 삭제 modal 창 통과 후 로직 : DELETE API 사용 & 홈페이지로 이동 */
+  function afterDeleteStudyModalPass() {
+    const path = "/study";
+
+    instance
+      .delete(path)
+      .then((res) => {
+        if (res.status === 204) {
+          navigate("/");
+        }
+      })
+      .catch((err) => alert(err.name));
+  }
+
+  function afterEditStudyModalPass() {
+    alert("수정 페이지로 이동 로직 추가 예정");
+  }
+
+  function afterGotoHabitModalPass() {
+    navigate(`/study/${studyId}/todayHabit`);
+  }
+
+  function afterGotoConcentrationModalPass() {
+    navigate("/concentration");
+  }
 
   const initModal = () => {
     setInputValue("");
