@@ -2,6 +2,7 @@
 
 .App {
   text-align: center;
+  background-color: var(--isabelline);
 }
 
 .App-header {
@@ -12,4 +13,5 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: var(--isabelline);
 }
