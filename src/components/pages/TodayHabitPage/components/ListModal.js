@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
-import { gethabitList, postHabit } from "../../../api/api";
+import { gethabitList, postHabit } from "../../../../api/api";
 import ListModalBody from "./ListModalBody";
-import trashCanImg from "../../../assets/imeges/trashCanImg.png";
+import trashCanImg from "../../../../assets/imeges/btn_trashCanImg.png";
 import ListModalPost from "./ListModalPost";
 
 function ListModal({ studyId, modalState, patchList, setPageRender }) {
@@ -21,7 +21,8 @@ function ListModal({ studyId, modalState, patchList, setPageRender }) {
       setList(data.habits);
     };
 
-    if (!list[0] && modalState) { // 첫 렌더링 시
+    if (!list[0] && modalState) {
+      // 첫 렌더링 시
       getList();
     } else if (reRender) {
       getList();
@@ -77,7 +78,8 @@ function ListModal({ studyId, modalState, patchList, setPageRender }) {
       setReRender(true);
       setPostInput(false);
       setPageRender(true);
-    } else if (value) { // input에만 값이 있을 때
+    } else if (value) {
+      // input에만 값이 있을 때
       patchList();
       const promises = childRefs.current
         .filter((ref) => ref !== null)

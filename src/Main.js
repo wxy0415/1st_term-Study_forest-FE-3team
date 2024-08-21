@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import App from "./App";
-import TodatHabitPage from "./pages/TodayHabitPage/TodayHabitPage";
-import ParticularPage from "./pages/ParticularPage/Particularpage";
+import TodatHabitPage from "./components/pages/TodayHabitPage/TodayHabitPage";
 
 function Main() {
   return (
@@ -9,7 +8,7 @@ function Main() {
       <Routes>
         <Route path="/" element={<App />}>
           <Route path=":studyId">
-            <Route index element={<ParticularPage />} />
+            {/* <Route index element={<ParticularPage />} /> */}
             <Route path="todayHabit" element={<TodatHabitPage />} />
           </Route>
         </Route>

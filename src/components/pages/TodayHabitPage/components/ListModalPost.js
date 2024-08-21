@@ -1,5 +1,5 @@
 import { useState } from "react";
-import trashCanImg from "../../../assets/imeges/trashCanImg.png";
+import trashCanImg from "../../../../assets/imeges/btn_trashCanImg.png";
 
 function ListModalPost({ habit, idx, postValues, setPostValues }) {
   const [value, setValue] = useState(habit);

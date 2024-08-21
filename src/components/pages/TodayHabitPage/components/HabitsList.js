@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import { gethabitList } from "../../../api/api";
+import { gethabitList } from "../../../../api/api";
 import HabitsListBody from "./HabitsListBody";
 
 function HabitsList({ studyId, patchList, pageRender, setPageRender }) {
   const [list, setList] = useState([]);
 
-  
   useEffect(() => {
     // API 호출 함수
     const getList = async () => {
@@ -13,7 +12,8 @@ function HabitsList({ studyId, patchList, pageRender, setPageRender }) {
       setList(data.habits);
     };
 
-    if (!list[0]) { // 첫 렌더링 시
+    if (!list[0]) {
+      // 첫 렌더링 시
       getList();
     } else if (pageRender) {
       getList();
