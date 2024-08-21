@@ -3,7 +3,7 @@ import axios from "axios";
 
 import "./Modal.css";
 
-import { deviceContext } from "./StudyBody";
+import { studyIdContext } from "./StudyBody";
 import { API_ADDRESS } from "../../../../constants/global";
 
 const instance = axios.create({
@@ -21,15 +21,14 @@ function afterDeleteStudyModalPass() {
     .delete(PATH)
     .then((res) => {
       if (res.status === 204) {
-        // 홈으로 이동
+        alert("삭제 완료 & 홈 페이지로 이동 로직 추가 예정");
       }
     })
     .catch((err) => alert(err.name));
 }
 
 function afterEditStudyModalPass() {
-  // 이건 페이지가 없어보임. 성현님 컴포넌트를 사용하거나, StudyBody 쪽의 input을 생성하여 수정할 수 있도록
-  alert("수정 페이지가 연결되지 않았습니다");
+  alert("수정 페이지로 이동 로직 추가 예정");
 }
 
 function afterGotoHabitModalPass() {
@@ -42,6 +41,9 @@ function afterGotoConcentrationModalPass() {
 
 export function Modal({ studyName, isOpen, onClose, modalType }) {
   const [inputValue, setInputValue] = useState("");
+  const [isIncorrectPasswordWarnOpen, setIsIncorrectPasswordWarnOpen] =
+    useState(false);
+  const [isPasswordLengWarnOpen, setIsPasswordLengWWarnOpen] = useState(false);
   const dialogRef = useRef(null);
 
   const afterModalPass = [
@@ -51,8 +53,7 @@ export function Modal({ studyName, isOpen, onClose, modalType }) {
     afterGotoConcentrationModalPass,
   ];
 
-  let studyId = useContext(deviceContext);
-  let temp = "";
+  let studyId = useContext(studyIdContext);
 
   const buttonClass = [
     "modal__btn-confirm",
@@ -62,18 +63,55 @@ export function Modal({ studyName, isOpen, onClose, modalType }) {
   ];
 
   const onModalClick = () => {
+    if (inputValue.trim().length < 8 || 24 < inputValue.trim().length) {
+      setIsPasswordLengWWarnOpen(true);
+      return;
+    }
+
     const path = `/study/${studyId}/auth`;
     instance.post(path, { password: inputValue }).then((res) => {
       if (res.data.result === true) {
         afterModalPass[modalType]();
       } else {
-        alert("wrong password");
+        setIsIncorrectPasswordWarnOpen(true);
       }
     });
   };
 
   const onInputChange = (e) => {
+    setIsIncorrectPasswordWarnOpen(false);
+    setIsPasswordLengWWarnOpen(false);
     setInputValue(e.target.value);
+  };
+
+  const wrongPasswordLengthWarn = () => {
+    const warning = (
+      <div className="flex-row modal__warning">
+        <p className="font16 medium modal__warning-text">
+          🚨 8 ~ 24 자리의 비밀번호를 입력해주세요.
+        </p>
+      </div>
+    );
+
+    return isPasswordLengWarnOpen ? warning : undefined;
+  };
+
+  const incorrectPasswordWarn = () => {
+    const warning = (
+      <div className="flex-row modal__warning">
+        <p className="font16 medium modal__warning-text">
+          🚨 비밀번호가 일치하지 않습니다. 다시 입력해주세요.
+        </p>
+      </div>
+    );
+
+    return isIncorrectPasswordWarnOpen ? warning : undefined;
+  };
+
+  const handleModalClose = () => {
+    setIsIncorrectPasswordWarnOpen(false);
+    setIsPasswordLengWWarnOpen(false);
+    isOpen = false;
   };
 
   useEffect(() => {
@@ -87,20 +125,24 @@ export function Modal({ studyName, isOpen, onClose, modalType }) {
   }, [isOpen]);
 
   return (
-    <dialog className="modalframe" ref={dialogRef} onClose={onClose}>
-      <div className="font24 extra-bold modal__studyname">{studyName}</div>
-      <div className="font18 medium modal__message">권한이 필요해요!</div>
-      <div>
-        <div>비밀번호</div>
-        <input
-          className="modal__password"
-          onChange={onInputChange}
-          placeholder="비밀번호를 입력해 주세요"
-        />
-      </div>
-      <button className={buttonClass[modalType]} onClick={onModalClick} />
-      <button onClick={onClose} />
-    </dialog>
+    <>
+      <dialog className="modal" ref={dialogRef} onClose={handleModalClose}>
+        <div className="font24 extra-bold modal__studyname">{studyName}</div>
+        <div className="font18 medium modal__message">권한이 필요해요!</div>
+        <div>
+          <div>비밀번호</div>
+          <input
+            className="modal__password"
+            onChange={onInputChange}
+            placeholder="비밀번호를 입력해 주세요"
+          />
+        </div>
+        <svg className={buttonClass[modalType]} onClick={onModalClick} />
+        <button onClick={handleModalClose} />
+      </dialog>
+      {incorrectPasswordWarn()}
+      {wrongPasswordLengthWarn()}
+    </>
   );
 }
 

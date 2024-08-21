@@ -1,9 +1,12 @@
-.modalframe {
+.modal {
   width: 64.8rem;
   height: 36.9rem;
   margin: auto;
+  box-sizing: border-box;
   font-size: 1rem;
   border-radius: 2em;
+  border-color: white;
+  background-color: white;
   position: relative;
 }
 
@@ -39,4 +42,21 @@
 
 .modal__btn-concentration {
   background-image: url("../../../../assets/images/btn_toConcentration.svg");
+}
+
+.modal__warning {
+  width: 42.1rem;
+  height: 4.7rem;
+  margin: 1rem auto;
+  box-sizing: border-box;
+  font-size: 1rem;
+  border-radius: 1.2em;
+  border-color: var(--piggy-pink);
+  background-color: var(--piggy-pink);
+  align-items: center;
+  justify-content: center;
+}
+
+.modal__warning-text {
+  color: var(--vivid-red);
 }

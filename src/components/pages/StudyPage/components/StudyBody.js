@@ -25,7 +25,7 @@ const instance = axios.create({
 
 const PATH = "/study";
 
-export const deviceContext = createContext();
+export const studyIdContext = createContext();
 
 export function StudyBody({
   studyId = "8523e4cc-0985-4c20-b8b2-2d86e4fe56d5",
@@ -71,7 +71,7 @@ export function StudyBody({
 
   return (
     <main className="main">
-      <deviceContext.Provider value={studyId}>
+      <studyIdContext.Provider value={studyId}>
         <section>
           <div>
             <div className="flex-row study__topbar">
@@ -100,7 +100,7 @@ export function StudyBody({
           onClose={closeModal}
           modalType={modalType}
         />
-      </deviceContext.Provider>
+      </studyIdContext.Provider>
     </main>
   );
 }
