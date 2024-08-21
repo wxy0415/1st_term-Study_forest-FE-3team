@@ -7,13 +7,11 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-          <header></header>
-          <main>
+          <header className='App-header'></header>
             <Routes>
               <Route path='/' element={<MAIN />} />
               <Route path='/todaysFocus' element={<TADAYSFOCUS />} />
             </Routes>
-          </main>
       </div>
     </BrowserRouter>
   );
