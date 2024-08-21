@@ -2,24 +2,17 @@
   width: 112rem;
   height: 51.1rem;
   box-sizing: border-box;
-  border: 0.1rem;
+  border: 0.1rem solid;
   border-color: #dddddd;
   border-radius: 2em;
-
+  margin: 0 auto;
   padding: 2.4rem;
-
-  background-color: aquamarine;
-}
-
-.habitrecord__title {
-  font-size: 2.4rem;
-  font-weight: 800;
-  line-height: 1.19333em;
 }
 
 .habitrecord__table {
   width: 107.2rem;
   height: 41rem;
+  margin-top: 2.4rem;
 }
 
 .habitrecord__title-day {

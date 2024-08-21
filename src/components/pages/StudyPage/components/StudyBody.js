@@ -39,6 +39,11 @@ export function StudyBody({
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
+  const handleShareStudy = () => {
+    navigator.clipboard.writeText(document.location.href);
+    alert("주소를 복사했습니다");
+  };
+
   const handleDeleteStudy = () => {
     setModalType(MODAL_CONFIRM);
     openModal();
@@ -70,18 +75,37 @@ export function StudyBody({
   return (
     <main className="main">
       <studyIdContext.Provider value={studyId}>
-        <section>
-          <div>
+        <section className="study__section">
+          <div className="study__content">
             <div className="flex-row study__topbar">
               <Emoji />
-              <div>
-                <button>공유하기</button>
-                <button onClick={handleEditStudy}>수정하기</button>
-                <button onClick={handleDeleteStudy}>스터디 삭제하기</button>
+              <div className="flex-row study__topbar-gp-btn">
+                <p
+                  className="font16 medium study__topbar-btn"
+                  onClick={handleShareStudy}
+                >
+                  공유하기
+                </p>
+                <p>|</p>
+                <p
+                  className="font16 medium study__topbar-btn"
+                  onClick={handleEditStudy}
+                >
+                  수정하기
+                </p>
+                <p>|</p>
+                <p
+                  className="font16 medium study__topbar-btn-delete"
+                  onClick={handleDeleteStudy}
+                >
+                  스터디 삭제하기
+                </p>
               </div>
             </div>
             <div className="flex-row study__middlebar">
-              <p>{studyName}</p>
+              <p className="font32 extra-bold study__middlebar-studyname">
+                {studyName}
+              </p>
               <div className="flex-row study__middlebar-gp-btn">
                 <button
                   className="font16 medium study__middlebar-btn"
@@ -98,8 +122,12 @@ export function StudyBody({
               </div>
             </div>
             <div className="study__description">
-              <div>소개</div>
-              <div>{description}</div>
+              <div className="font18 regular study__description-label">
+                소개
+              </div>
+              <div className="font18 medium study__description-text">
+                {description}
+              </div>
             </div>
             <StudyPoint point={studyPoint} />
           </div>

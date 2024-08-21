@@ -10,16 +10,13 @@
   width: 11.6rem;
   height: 3.5rem;
   margin-top: 0.8rem;
-  /* border-color: rgba(0, 0, 0, 0.1); */
-  /* background-color: rgba(255, 255, 255, 0.3); */
-  padding-left: 1.2rem;
 
-  background-color: antiquewhite;
-  border-color: #dddddd;
-  border: 0.1rem;
+  border: 0.1rem solid;
+  border-color: var(--gainsboro);
   border-radius: 5em;
 
   align-items: center;
+  justify-content: center;
 }
 
 .point__point-text {
