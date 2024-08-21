@@ -5,7 +5,7 @@ const T = 68;
 const M = '01';
 const S = '08';
 
-const Timer = ({ initialPoint, setPoint }) => {
+const Timer = ({ initialPoint, setPoint, setAlertGetPoint, id }) => {
   var initPoint;
   if (initialPoint) {
     initPoint = initialPoint;
@@ -66,9 +66,10 @@ const Timer = ({ initialPoint, setPoint }) => {
   }
 
   var timer;
-  var obtainPoint = initialPoint;
+  var obtainPoint = 0;
 
   const StartTimer = (e) => {
+    setAlertGetPoint('')
     setCssState(true)
     e.target.className += "start"
     setAlertCondition('');
@@ -88,7 +89,6 @@ const Timer = ({ initialPoint, setPoint }) => {
         }
 
         if (count === 0) {
-          setAlertCondition(<div className='condition__point'> &nbsp;&nbsp;&nbsp; 50포인트를 획득했습니다!</div>)
           obtainPoint = obtainPoint + 50;
         }
       } else {
@@ -104,8 +104,7 @@ const Timer = ({ initialPoint, setPoint }) => {
           setSecond(changeDigits(Math.abs(count % 60)));
         }
 
-        if (count % 60 === 0) {
-          setAlertCondition(<div className='condition__point'> &nbsp;&nbsp;&nbsp; 1포인트를 획득했습니다!</div>)
+        if (count % 2 === 0) {
           obtainPoint++;
           console.log(obtainPoint)
         }
@@ -114,15 +113,17 @@ const Timer = ({ initialPoint, setPoint }) => {
   }
 
   const StopTimer = () => {
-    setTotalPoint(obtainPoint);
+    let total = initialPoint + obtainPoint
+    setTotalPoint(total);
     init();
     clearInterval(timer);
     setStopTimer('');
-    setPoint(obtainPoint);
+    setPoint(total);
+    setAlertGetPoint(<div className='condition__alert points font16'> <span> {obtainPoint}포인트를 획득했습니다!</span></div>)
   }
 
   const PauseTimer = () => {
-    setAlertCondition(<div className='condition__stop'> &nbsp;&nbsp;&nbsp; 집중이 중단되었습니다.</div>)
+    setAlertCondition(<div className='condition__alert pause font16'> <span>집중이 중단되었습니다.</span></div>)
     clearInterval(timer);
   }
 
@@ -135,14 +136,13 @@ const Timer = ({ initialPoint, setPoint }) => {
     const options = {
       point: totalPoint,
     }
-    const id = '648ab555-4ca1-40e5-91dc-6fdf0c793488'
 
     const updateinfo = async (id, options) => {
       await updatePoint(id, options);
     }
 
     updateinfo(id, options);
-  }, [totalPoint])
+  }, [totalPoint, id])
 
   return (
     <>
@@ -150,10 +150,10 @@ const Timer = ({ initialPoint, setPoint }) => {
         <div className='targettime__icon'></div>
         {changeTime(initialTime)}
       </div>
-      <div className={`timer ${cssState ? cssState == 'over'? "gray": "vividred" : ""}`}>
-        {timerState ? "" : "-"}
-        <input type="text" className={`timer__input ${cssState ? cssState == 'over'? "gray": "vividred" : ""}`} value={minute} onChange={timerMinute} /> :
-        <input type="text" className={`timer__input ${cssState ? cssState == 'over'? "gray": "vividred" : ""}`} value={second} onChange={timerSecond} />
+      <div className={`timer font150 ${cssState ? cssState === 'over'? "gray": "vividred" : ""}`}>
+        <span>{timerState ? "" : "-"}</span>
+        <input type="text" className={`timer__input font150 ${cssState ? cssState === 'over'? "gray": "vividred" : ""}`} value={minute} onChange={timerMinute} /> <span>:</span>
+        <input type="text" className={`timer__input font150 ${cssState ? cssState === 'over'? "gray": "vividred" : ""}`} value={second} onChange={timerSecond} />
       </div>
 
       <div className="timerbtns">
