@@ -34,4 +34,10 @@ const postHabit = async (studyId, surveyData) => {
   return res.data;
 };
 
-export { gethabitList, postSuccess, deleteSuccess, deleteHabit, postHabit };
+// 습관 이름 변경 API
+const patchHabit = async (habitId, surveyData) => {
+  const res = await instance.patch(`/habit/${habitId}`, surveyData);
+  return res.data;
+};
+
+export { gethabitList, postSuccess, deleteSuccess, deleteHabit, postHabit, patchHabit };

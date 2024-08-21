@@ -1,22 +1,56 @@
-import { useEffect, useState } from "react";
-import { deleteHabit, gethabitList, postHabit } from "../../../api/api";
+import {
+  useEffect,
+  useState,
+  useImperativeHandle,
+  forwardRef,
+  useRef,
+} from "react";
+import {
+  deleteHabit,
+  gethabitList,
+  postHabit,
+  patchHabit,
+} from "../../../api/api";
 import trashCanImg from "../../../assets/imeges/trashCanImg.png";
 
-function ListModalBody({ habit, setReRender }) {
+const ListModalBody = forwardRef(({ habit, setReRender}, ref) => {
+  const [value, setValue] = useState({ name: habit.name });
+  const [patchInput, setPatchInput] = useState(false);
+  // const [deleted, setDeleted] = useState(true)
   const habitId = habit.id;
 
   const deleteHabitHandler = async () => {
     await deleteHabit(habitId);
     setReRender(true);
+    // setDeleted(false)
   };
+
+  const patchClick = () => {
+    setPatchInput(true);
+  };
+
+  const changValueHandler = (e) => {
+    setValue({ name: e.target.value });
+  };
+
+  useImperativeHandle(ref, () => ({
+    sendRequest: async () => {
+      if (value.name !== habit.name) {
+        await patchHabit(habitId, value);
+        setPatchInput(false);
+        setReRender(true);
+      }
+    },
+  }));
 
   return (
     <div>
-      {habit.name}
+      {!patchInput && <div onClick={patchClick}>{habit.name}</div>}
+      {patchInput && <input value={value.name} onChange={changValueHandler} />}
       <img onClick={deleteHabitHandler} src={trashCanImg} alt="쓰레기통" />
     </div>
   );
-}
+});
 
 function ListModal({ studyId, modalState, patchList, setPageRender }) {
   const [list, setList] = useState([]);
@@ -24,14 +58,15 @@ function ListModal({ studyId, modalState, patchList, setPageRender }) {
   const [value, setValue] = useState({ name: "" });
   const [reRender, setReRender] = useState(false);
   const [dummy, setDummy] = useState([]);
+  const childRefs = useRef([]);
 
   useEffect(() => {
     const getList = async () => {
       const data = await gethabitList(studyId);
       setList(data.habits);
 
-      if(!dummy[0]) {
-        setDummy(data.habits)
+      if (!dummy[0]) {
+        setDummy(data.habits);
       }
     };
 
@@ -70,9 +105,14 @@ function ListModal({ studyId, modalState, patchList, setPageRender }) {
     } else {
       patchList();
       setPostInput(false);
-      if (dummy !== list) {
+
+      const promises = childRefs.current.filter(ref => ref !== null).map((ref) => ref.sendRequest());
+      const result = await Promise.all(promises);
+
+      if (dummy !== list || result) {
+        console.log(1)
         setPageRender(true);
-        setDummy(list)
+        setDummy(list);
       }
     }
   };
@@ -81,9 +121,11 @@ function ListModal({ studyId, modalState, patchList, setPageRender }) {
   const cencelHandler = () => {
     patchList();
     setPostInput(false);
+    setValue({ name: "" });
     if (dummy !== list) {
       setPageRender(true);
-      setDummy(list)
+      setDummy(list);
+      setValue({ name: "" });
     }
   };
 
@@ -93,10 +135,14 @@ function ListModal({ studyId, modalState, patchList, setPageRender }) {
         <div>
           <p>습관 목록</p>
           <ol>
-            {list.map((habit) => {
+            {list.map((habit, index) => {
               return (
                 <li key={habit.id}>
-                  <ListModalBody habit={habit} setReRender={setReRender} />
+                  <ListModalBody
+                    habit={habit}
+                    setReRender={setReRender}
+                    ref={(el) => (childRefs.current[index] = el)}
+                  />
                 </li>
               );
             })}

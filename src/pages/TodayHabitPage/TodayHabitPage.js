@@ -6,7 +6,7 @@ import { useState } from "react";
 
 function TodatHabitPage() {
   const [modalOn, setModalOn] = useState(false);
-  const [pageRender, setPageRender] = useState(false)
+  const [pageRender, setPageRender] = useState(false);
   const { studyId } = useParams();
 
   const patchListHandler = () => {
@@ -17,12 +17,21 @@ function TodatHabitPage() {
     }
   };
 
-
   return (
     <>
       <CurrentTime />
-      <HabitsList studyId={studyId} patchList={patchListHandler} pageRender={pageRender} setPageRender={setPageRender}/>
-      <ListModal studyId={studyId} modalState={modalOn} patchList={patchListHandler} setPageRender={setPageRender}/>
+      <HabitsList
+        studyId={studyId}
+        patchList={patchListHandler}
+        pageRender={pageRender}
+        setPageRender={setPageRender}
+      />
+      <ListModal
+        studyId={studyId}
+        modalState={modalOn}
+        patchList={patchListHandler}
+        setPageRender={setPageRender}
+      />
     </>
   );
 }
