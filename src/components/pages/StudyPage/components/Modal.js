@@ -44,6 +44,10 @@ export function Modal({ studyName, isOpen, onClose, modalType }) {
   const [isIncorrectPasswordWarnOpen, setIsIncorrectPasswordWarnOpen] =
     useState(false);
   const [isPasswordLengWarnOpen, setIsPasswordLengWWarnOpen] = useState(false);
+  const [inputType, setInputType] = useState("password");
+  const [toggleVisibleClass, setToggleVisibleClass] = useState(
+    "modal__password-input-visible-off"
+  );
   const dialogRef = useRef(null);
 
   const afterModalPass = [
@@ -64,6 +68,8 @@ export function Modal({ studyName, isOpen, onClose, modalType }) {
 
   const initModal = () => {
     setInputValue("");
+    setInputType("password");
+    setToggleVisibleClass("modal__password-input-visible-off");
   };
 
   const onModalClick = () => {
@@ -112,6 +118,16 @@ export function Modal({ studyName, isOpen, onClose, modalType }) {
     return isIncorrectPasswordWarnOpen ? warning : undefined;
   };
 
+  const toggleVisiblePassword = () => {
+    if (inputType === "text") {
+      setInputType("password");
+      setToggleVisibleClass("modal__password-input-visible-off");
+    } else {
+      setInputType("text");
+      setToggleVisibleClass("modal__password-input-visible-on");
+    }
+  };
+
   const handleModalClose = () => {
     setIsIncorrectPasswordWarnOpen(false);
     setIsPasswordLengWWarnOpen(false);
@@ -131,21 +147,33 @@ export function Modal({ studyName, isOpen, onClose, modalType }) {
 
   return (
     <dialog className="modal" ref={dialogRef} onClose={handleModalClose}>
-      <div className="font24 extra-bold modal__studyname">{studyName}</div>
-      <div className="font18 medium modal__message">권한이 필요해요!</div>
-      <div>
-        <div>비밀번호</div>
-        <input
-          className="modal__password"
-          onChange={onInputChange}
-          placeholder="비밀번호를 입력해 주세요"
-          value={inputValue}
-        />
+      <div className="flex-col modal__content">
+        <div className="font24 extra-bold modal__studyname">{studyName}</div>
+        <div className="font18 medium modal__message">권한이 필요해요!</div>
+        <div className="modal__password">
+          <div className="font18 semi-bold modal__password-label">비밀번호</div>
+          <div className="modal__password-inputset">
+            <input
+              className="font16 regular modal__password-input"
+              onChange={onInputChange}
+              placeholder="비밀번호를 입력해 주세요"
+              value={inputValue}
+              type={inputType}
+            ></input>
+            <svg
+              onClick={toggleVisiblePassword}
+              className={toggleVisibleClass}
+            />
+          </div>
+        </div>
+        <svg className={buttonClass[modalType]} onClick={onModalClick} />
+        <p
+          className="font16 medium modal__btn-close"
+          onClick={handleModalClose}
+        >
+          나가기
+        </p>
       </div>
-      <svg className={buttonClass[modalType]} onClick={onModalClick} />
-      <button className="tempClose" onClick={handleModalClose}>
-        나가기
-      </button>
       {incorrectPasswordWarn()}
       {wrongPasswordLengthWarn()}
     </dialog>
