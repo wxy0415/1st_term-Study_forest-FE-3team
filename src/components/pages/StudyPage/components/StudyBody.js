@@ -1,13 +1,20 @@
 import axios from "axios";
 import { useState, useEffect, createContext } from "react";
+// import useSetModalType from "../../../hooks/useSetModalType";
 import Emoji from "./Emoji";
 import StudyNavigationButtons from "./StudyNavigationButtons";
 import StudyPoint from "./StudyPoint";
 import HabitRecord from "./HabitRecord";
 import Modal from "./Modal";
-import "./studybody.css";
+import "./StudyBody.css";
 
-import { API_ADDRESS } from "../../../../constants/global";
+import {
+  API_ADDRESS,
+  MODAL_CONFIRM,
+  MODAL_EDIT_STUDY,
+  MODAL_GOTO_HABIT,
+  MODAL_GOTO_CONCENTRATION,
+} from "../../../../constants/global";
 
 const instance = axios.create({
   baseURL: API_ADDRESS,
@@ -29,53 +36,28 @@ export function StudyBody({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState(-1);
 
-  const MODAL_CONFIRM = 0;
-  const MODAL_EDIT = 1;
-  const MODAL_HABIT = 2;
-  const MODAL_CONCENTRATION = 3;
-
   const path = `${PATH}/${studyId}`;
-
-  let handleFunction = null;
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
   const handleDeleteStudy = () => {
-    handleFunction = deleteStudy;
     setModalType(MODAL_CONFIRM);
     openModal();
   };
 
-  const deleteStudy = () => {
-    instance
-      .delete(path)
-      .then((res) => {
-        if (res.status === 204) {
-          // 홈으로 이동
-        }
-      })
-      .catch((err) => alert(err.name));
-  };
-
   const handleEditStudy = () => {
-    handleFunction = editStudy;
-    setModalType(MODAL_EDIT);
+    setModalType(MODAL_EDIT_STUDY);
     openModal();
   };
 
-  const editStudy = () => {
-    // 이건 페이지가 없어보임. 성현님 컴포넌트를 사용하거나, StudyBody 쪽의 input을 생성하여 수정할 수 있도록
-    alert("수정 페이지가 연결되지 않았습니다");
-  };
-
   const handleToHabit = () => {
-    setModalType(MODAL_HABIT);
+    setModalType(MODAL_GOTO_HABIT);
     openModal();
   };
 
   const handleToConcentration = () => {
-    setModalType(MODAL_CONCENTRATION);
+    setModalType(MODAL_GOTO_CONCENTRATION);
     openModal();
   };
 
@@ -117,7 +99,6 @@ export function StudyBody({
           isOpen={isModalOpen}
           onClose={closeModal}
           modalType={modalType}
-          onClick={handleFunction}
         />
       </deviceContext.Provider>
     </main>

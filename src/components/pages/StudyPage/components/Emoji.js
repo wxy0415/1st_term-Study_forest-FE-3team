@@ -1,4 +1,4 @@
-import "./emoji.css";
+import "./Emoji.css";
 
 export function Emoji() {
   return <div className="emoji">emoji</div>;

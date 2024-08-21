@@ -1,4 +1,4 @@
-import "./studynavigationbuttons.css";
+import "./StudyNavigationButtons.css";
 
 export function StudyNavigationButtons({ onHabit, onConcentration }) {
   return (

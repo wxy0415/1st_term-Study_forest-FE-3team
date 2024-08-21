@@ -1,19 +1,22 @@
-import { useState } from "react";
+// import axios from "axios";
+// import { useState, useEffect } from "react";
+// import {
+//   MODAL_CONFIRM,
+//   MODAL_EDIT_STUDY,
+//   MODAL_GOTO_HABIT,
+//   MODAL_GOTO_CONCENTRATION,
+// } from "../../constants/global";
 
-export function useSetModalType(validate) {
-  const [modalType, setModalType] = useState(-1);
-  const [handleAfterAuth, setHandleAfterAuth] = useState(null);
+// export function useSetModalType(newModalType) {
+//   useEffect(() => {
+//     setModalType(newModalType);
+//     setHandleAfterAuth(AFTER_MODAL[newModalType]);
+//   }, [newModalType]);
 
-  const handleAfterModalPass = () => {
-    setValue(newValue);
-    setIsValid(validate(newValue));
-  };
+//   return {
+//     modalType,
+//     handleAfterAuth,
+//   };
+// }
 
-  return {
-    setModalType,
-    setHandleAfterAuth,
-    afterModalPass: handleAfterModalPass,
-  };
-}
-
-export default useSetModalType;
+// export default useSetModalType;
