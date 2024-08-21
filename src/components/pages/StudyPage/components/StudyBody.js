@@ -5,6 +5,9 @@ import Emoji from "./Emoji";
 import StudyPoint from "./StudyPoint";
 import HabitRecord from "./HabitRecord";
 import Modal from "./Modal";
+
+import TodayButton from "../../../UI/TodayButton";
+
 import "./StudyBody.css";
 
 import {
@@ -108,18 +111,22 @@ export function StudyBody({
                 {studyName}
               </p>
               <div className="flex-row study__middlebar-gp-btn">
-                <button
+                {/* <button
                   className="font16 medium study__middlebar-btn"
                   onClick={handleGotoHabit}
                 >
                   오늘의 습관
-                </button>
-                <button
+                </button> */}
+                <TodayButton onClick={handleGotoHabit}>오늘의 습관</TodayButton>
+                {/* <button
                   className="font16 medium study__middlebar-btn"
                   onClick={handleGotoConcentration}
                 >
                   오늘의 집중
-                </button>
+                </button> */}
+                <TodayButton onClick={handleGotoConcentration}>
+                  오늘의 집중
+                </TodayButton>
               </div>
             </div>
             <div className="study__description">

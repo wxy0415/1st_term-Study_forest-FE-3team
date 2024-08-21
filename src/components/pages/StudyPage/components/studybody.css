@@ -50,13 +50,14 @@
 }
 
 .study__middlebar-gp-btn {
-  width: 30.4rem;
+  /* 폰트 미적용으로 width 임시 수정. 검토 필요 */
+  width: 32rem;
   height: 4.8rem;
   align-items: center;
   justify-content: space-between;
 }
 
-.study__middlebar-btn {
+/* .study__middlebar-btn {
   width: 14.4rem;
   height: 4.8rem;
   box-sizing: border-box;
@@ -66,7 +67,7 @@
   color: var(--gray);
   background-color: white;
   cursor: pointer;
-}
+} */
 
 .study__description {
   width: 112rem;

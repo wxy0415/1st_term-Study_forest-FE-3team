@@ -29,6 +29,12 @@
   line-height: 1.44444em;
 }
 
+.habitrecord__table-value-frame {
+  width: 108.8rem;
+  height: 38.4rem;
+  overflow-y: auto;
+}
+
 .habitrecord__table-habitname {
   display: flex;
   width: 24.6rem;

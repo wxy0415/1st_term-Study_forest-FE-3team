@@ -96,16 +96,20 @@ function HabitWeekRecords({ totalCount, habits }) {
   let data = null;
 
   if (totalCount) {
-    data = habits.map((habit, index) => {
-      return (
-        <HabitWeekRecord
-          key={index}
-          habitName={habit.name}
-          stickerType={index}
-          successIndices={habit.success}
-        />
-      );
-    });
+    data = (
+      <div className="habitrecord__table-value-frame">
+        {habits.map((habit, index) => {
+          return (
+            <HabitWeekRecord
+              key={index}
+              habitName={habit.name}
+              stickerType={index}
+              successIndices={habit.success}
+            />
+          );
+        })}
+      </div>
+    );
   } else {
     data = (
       <p>
