@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import useValidation from '../../hooks/useValidation.js';
+import useValidation from '../../../../hooks/useValidation.js';
 import './inputForm.css';
-import invisiblePassword from '../../assets/images/btn_visibility_off.png';
-import visiblePassword from '../../assets/images/btn_visibility_on.png';
+import invisiblePassword from '../../../../assets/images/btn_visibility_off.png';
+import visiblePassword from '../../../../assets/images/btn_visibility_on.png';
 
 const CreateStudy = () => {
   const {

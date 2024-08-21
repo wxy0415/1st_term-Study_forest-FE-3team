@@ -1,9 +1,9 @@
 import './studyList.css';
 import axios from 'axios';
-import React, { useState, useRef, useEffect, useCallback } from 'react';
-import searchBtn from '../../assets/images/Vector.png';
-import dropdownBtn from '../../assets/images/ic_toggle.png';
-import StudyCard from '../StudyCard/StudyCard';
+import React, { useState, useRef, useEffect } from 'react';
+import searchBtn from '../../../../assets/images/Vector.png';
+import dropdownBtn from '../../../../assets/images/ic_toggle.png';
+import StudyCard from '../../../UI/StudyCard/StudyCard';
 
 const StudyList = () => {
   const [studyCards, setStudyCards] = useState([]);
@@ -15,7 +15,6 @@ const StudyList = () => {
   const [boxText, setBoxText] = useState('최근 순');
   const [searchKeyword, setSearchKeyword] = useState('');
   const [order, setOrder] = useState('recent');
-  const observer = useRef();
   const dropDownRef = useRef(null);
 
   const toggleDropDown = () => {

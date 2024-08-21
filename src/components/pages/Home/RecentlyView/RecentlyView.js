@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './recentlyView.css';
-import StudyCard from '../StudyCard/StudyCard.js';
+import StudyCard from '../../../UI/StudyCard/StudyCard.js';
 
 const RecentlyView = () => {
   const [recentlyViewed, setRecentlyViewed] = useState([]);

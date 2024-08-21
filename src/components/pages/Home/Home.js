@@ -1,6 +1,6 @@
-import Header from '../Header/Header.js';
-import RecentlyView from '../RecentlyView/RecentlyView';
-import StudyList from '../StudyList/StudyList';
+import Header from '../../Layout/Header.js';
+import RecentlyView from './RecentlyView/RecentlyView.js';
+import StudyList from './StudyList/StudyList.js';
 
 const Home = () => {
   return (

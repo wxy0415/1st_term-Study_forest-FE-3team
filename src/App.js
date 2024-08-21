@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import './assets/styles/global.css';
-import Home from './components/pages/Home.js';
-import CreateStudy from './components/pages/CreateStudy.js';
-import DetailStudy from './components/pages/DetailStudy.js';
+import './styles/global.css';
+import Home from './components/pages/Home/Home.js';
+import CreateStudy from './components/pages/CreateStudy/CreateStudy.js';
+import DetailStudy from './components/pages/DetailStudy/DetailStudy.js';
 
 function App() {
   return (

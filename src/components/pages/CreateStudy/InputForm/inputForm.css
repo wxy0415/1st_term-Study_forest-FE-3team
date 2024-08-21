@@ -111,7 +111,7 @@ textarea:focus {
 .selectedBtn {
   width: 32px;
   height: 32px;
-  background-image: url('../../assets/images/ic_bg_selecte.png');
+  background-image: url('../../../../assets/images/ic_bg_selected.png');
   background-size: cover;
   position: absolute;
   top: 50%;

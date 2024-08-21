@@ -1,4 +1,4 @@
-import Header from '../Header/Header.js';
+import Header from '../../Layout/Header.js';
 
 const DetailStudy = () => {
   return (
