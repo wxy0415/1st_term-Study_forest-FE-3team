@@ -8,6 +8,7 @@
   border-color: white;
   background-color: white;
   position: relative;
+  overflow: visible;
 }
 
 .modal__studyname {
@@ -37,17 +38,21 @@
 }
 
 .modal__btn-habit {
+  width: 60rem;
+  height: 5.8rem;
   background-image: url("../../../../assets/images/btn_toHabit.svg");
 }
 
 .modal__btn-concentration {
+  width: 60rem;
+  height: 5.8rem;
   background-image: url("../../../../assets/images/btn_toConcentration.svg");
 }
 
 .modal__warning {
   width: 42.1rem;
   height: 4.7rem;
-  margin: 1rem auto;
+  margin: 13rem auto;
   box-sizing: border-box;
   font-size: 1rem;
   border-radius: 1.2em;
@@ -59,4 +64,9 @@
 
 .modal__warning-text {
   color: var(--vivid-red);
+}
+
+.tempClose {
+  width: 60rem;
+  height: 5.8rem;
 }

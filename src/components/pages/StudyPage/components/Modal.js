@@ -15,10 +15,10 @@ const instance = axios.create({
 
 /** 스터디 삭제 modal 창 통과 후 로직 : DELETE API 사용 & 홈페이지로 이동 */
 function afterDeleteStudyModalPass() {
-  const PATH = "/study";
+  const path = "/study";
 
   instance
-    .delete(PATH)
+    .delete(path)
     .then((res) => {
       if (res.status === 204) {
         alert("삭제 완료 & 홈 페이지로 이동 로직 추가 예정");
@@ -61,6 +61,10 @@ export function Modal({ studyName, isOpen, onClose, modalType }) {
     "modal__btn-habit",
     "modal__btn-concentration",
   ];
+
+  const initModal = () => {
+    setInputValue("");
+  };
 
   const onModalClick = () => {
     if (inputValue.trim().length < 8 || 24 < inputValue.trim().length) {
@@ -111,7 +115,8 @@ export function Modal({ studyName, isOpen, onClose, modalType }) {
   const handleModalClose = () => {
     setIsIncorrectPasswordWarnOpen(false);
     setIsPasswordLengWWarnOpen(false);
-    isOpen = false;
+    initModal();
+    onClose();
   };
 
   useEffect(() => {
@@ -125,24 +130,25 @@ export function Modal({ studyName, isOpen, onClose, modalType }) {
   }, [isOpen]);
 
   return (
-    <>
-      <dialog className="modal" ref={dialogRef} onClose={handleModalClose}>
-        <div className="font24 extra-bold modal__studyname">{studyName}</div>
-        <div className="font18 medium modal__message">권한이 필요해요!</div>
-        <div>
-          <div>비밀번호</div>
-          <input
-            className="modal__password"
-            onChange={onInputChange}
-            placeholder="비밀번호를 입력해 주세요"
-          />
-        </div>
-        <svg className={buttonClass[modalType]} onClick={onModalClick} />
-        <button onClick={handleModalClose} />
-      </dialog>
+    <dialog className="modal" ref={dialogRef} onClose={handleModalClose}>
+      <div className="font24 extra-bold modal__studyname">{studyName}</div>
+      <div className="font18 medium modal__message">권한이 필요해요!</div>
+      <div>
+        <div>비밀번호</div>
+        <input
+          className="modal__password"
+          onChange={onInputChange}
+          placeholder="비밀번호를 입력해 주세요"
+          value={inputValue}
+        />
+      </div>
+      <svg className={buttonClass[modalType]} onClick={onModalClick} />
+      <button className="tempClose" onClick={handleModalClose}>
+        나가기
+      </button>
       {incorrectPasswordWarn()}
       {wrongPasswordLengthWarn()}
-    </>
+    </dialog>
   );
 }
 

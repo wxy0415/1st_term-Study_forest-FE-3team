@@ -1,8 +1,6 @@
 import axios from "axios";
 import { useState, useEffect, createContext } from "react";
-// import useSetModalType from "../../../hooks/useSetModalType";
 import Emoji from "./Emoji";
-import StudyNavigationButtons from "./StudyNavigationButtons";
 import StudyPoint from "./StudyPoint";
 import HabitRecord from "./HabitRecord";
 import Modal from "./Modal";
@@ -51,12 +49,12 @@ export function StudyBody({
     openModal();
   };
 
-  const handleToHabit = () => {
+  const handleGotoHabit = () => {
     setModalType(MODAL_GOTO_HABIT);
     openModal();
   };
 
-  const handleToConcentration = () => {
+  const handleGotoConcentration = () => {
     setModalType(MODAL_GOTO_CONCENTRATION);
     openModal();
   };
@@ -84,7 +82,20 @@ export function StudyBody({
             </div>
             <div className="flex-row study__middlebar">
               <p>{studyName}</p>
-              <StudyNavigationButtons />
+              <div className="flex-row study__middlebar-gp-btn">
+                <button
+                  className="font16 medium study__middlebar-btn"
+                  onClick={handleGotoHabit}
+                >
+                  오늘의 습관
+                </button>
+                <button
+                  className="font16 medium study__middlebar-btn"
+                  onClick={handleGotoConcentration}
+                >
+                  오늘의 집중
+                </button>
+              </div>
             </div>
             <div className="study__description">
               <div>소개</div>
