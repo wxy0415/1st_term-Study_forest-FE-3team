@@ -1,8 +1,8 @@
+import { useState } from "react";
+import { useParams } from "react-router-dom";
 import CurrentTime from "./components/CurrentTime";
 import HabitsList from "./components/HabitsList";
-import { useParams } from "react-router-dom";
 import ListModal from "./components/ListModal";
-import { useState } from "react";
 
 function TodatHabitPage() {
   const [modalOn, setModalOn] = useState(false);

@@ -1,61 +1,24 @@
 import { useEffect, useState } from "react";
-import { deleteSuccess, gethabitList, postSuccess } from "../../../api/api";
-import "./HabitsList.css";
-
-// 습관 리스트 바디
-function ListBody({ habit }) {
-  const [successId, setSuccessId] = useState("");
-  const [habitClassName, setHabitClassName] = useState("list--fals");
-  const [firstLoding, setFirstLoding] = useState(true);
-  const habitId = habit.id;
-
-  // 완료 여부에 따른 색 변경
-  useEffect(() => {
-    if (firstLoding && habit.HabitSuccessDates[0]) {
-      // 첫 랜더링 시 있을 때만 적용
-      setHabitClassName("list--true");
-      setSuccessId(habit.HabitSuccessDates[0].id);
-      setFirstLoding(false);
-    } else if (successId) {
-      setHabitClassName("list--true");
-    } else {
-      setHabitClassName("list--false");
-    }
-  }, [habit, successId, firstLoding]);
-
-  const successApiHandler = async () => {
-    if (successId) {
-      await deleteSuccess(successId);
-      setSuccessId("");
-    } else if (!successId) {
-      const res = await postSuccess(habitId);
-      setSuccessId(res.id);
-    }
-  };
-
-  return (
-    <div className={habitClassName} onClick={successApiHandler}>
-      {habit.name}
-    </div>
-  );
-}
+import { gethabitList } from "../../../api/api";
+import HabitsListBody from "./HabitsListBody";
 
 function HabitsList({ studyId, patchList, pageRender, setPageRender }) {
   const [list, setList] = useState([]);
 
-  // 첫 랜더링 시 실행
+  
   useEffect(() => {
+    // API 호출 함수
     const getList = async () => {
       const data = await gethabitList(studyId);
       setList(data.habits);
     };
-    if (!list[0]) {
+
+    if (!list[0]) { // 첫 렌더링 시
       getList();
     } else if (pageRender) {
       getList();
       setPageRender(false);
     }
-
   }, [studyId, list, pageRender, setPageRender]);
 
   return (
@@ -72,7 +35,7 @@ function HabitsList({ studyId, patchList, pageRender, setPageRender }) {
           {list.map((habit) => {
             return (
               <li key={habit.id}>
-                <ListBody habit={habit} />
+                <HabitsListBody habit={habit} />
               </li>
             );
           })}
