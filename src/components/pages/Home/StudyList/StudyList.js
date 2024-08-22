@@ -10,7 +10,7 @@ const StudyList = () => {
   const [page, setPage] = useState(1);
   const [pageSize] = useState(6);
   const [hasMore, setHasMore] = useState(true);
-  const [isLoading, setIsLoading] = useState(false); // 로딩 상태 추가
+  const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [boxText, setBoxText] = useState('최근 순');
   const [searchKeyword, setSearchKeyword] = useState('');
@@ -28,7 +28,7 @@ const StudyList = () => {
   };
 
   const fetchStudyCards = async (page, searchKeyword, order) => {
-    setIsLoading(true); // 로딩 시작
+    setIsLoading(true);
     const response = await axios.get(
       `https://onest-term-study-forest-be-3team-rovo.onrender.com/study?page=${page}&pageSize=${pageSize}&order=${order}&keyWord=${searchKeyword}`
     );
@@ -42,18 +42,18 @@ const StudyList = () => {
       return [...studyCards, ...newCards].find((card) => card.id === id);
     });
     setStudyCards(uniqueCards);
-    setIsLoading(false); // 로딩 종료
+    setIsLoading(false);
   };
 
   useEffect(() => {
-    setStudyCards([]); // 기존 카드 초기화
-    setPage(1); // 페이지 초기화
-    fetchStudyCards(1, searchKeyword, order); // 초기 페이지 데이터 로드
+    setStudyCards([]);
+    setPage(1);
+    fetchStudyCards(1, searchKeyword, order);
   }, [searchKeyword, order]);
 
   useEffect(() => {
     if (page > 1) {
-      fetchStudyCards(page, searchKeyword, order); // 페이지 변경 시 데이터 로드
+      fetchStudyCards(page, searchKeyword, order);
     }
   }, [page]);
 
@@ -67,38 +67,37 @@ const StudyList = () => {
   const handleClickRecent = () => {
     setBoxText('최신순');
     setOrder('recent');
-    setPage(1); // 페이지 초기화
-    setStudyCards([]); // 기존 카드 초기화
-    fetchStudyCards(1, searchKeyword, 'recent'); // 정렬 변경 시 데이터 로드
+    setPage(1);
+    setStudyCards([]);
+    fetchStudyCards(1, searchKeyword, 'recent');
   };
 
   const handleClickOldest = () => {
     setBoxText('오래된 순');
     setOrder('oldest');
-    setPage(1); // 페이지 초기화
-    setStudyCards([]); // 기존 카드 초기화
-    fetchStudyCards(1, searchKeyword, 'oldest'); // 정렬 변경 시 데이터 로드
+    setPage(1);
+    setStudyCards([]);
+    fetchStudyCards(1, searchKeyword, 'oldest');
   };
 
   const handleClickMostPoint = () => {
     setBoxText('많은 포인트 순');
     setOrder('mostPoint');
-    setPage(1); // 페이지 초기화
-    setStudyCards([]); // 기존 카드 초기화
-    fetchStudyCards(1, searchKeyword, 'mostPoint'); // 정렬 변경 시 데이터 로드
+    setPage(1);
+    setStudyCards([]);
+    fetchStudyCards(1, searchKeyword, 'mostPoint');
   };
 
   const handleClicLeastPoint = () => {
     setBoxText('적은 포인트 순');
     setOrder('leastPoint');
-    setPage(1); // 페이지 초기화
-    setStudyCards([]); // 기존 카드 초기화
-    fetchStudyCards(1, searchKeyword, 'leastPoint'); // 정렬 변경 시 데이터 로드
+    setPage(1);
+    setStudyCards([]);
+    fetchStudyCards(1, searchKeyword, 'leastPoint');
   };
 
   const handleViewMore = () => {
     if (!isLoading) {
-      // 로딩 중이 아닐 때만 페이지 증가
       setPage((prevPage) => prevPage + 1);
     }
   };
@@ -108,14 +107,14 @@ const StudyList = () => {
   };
 
   const handleSearchClick = () => {
-    setStudyCards([]); // 기존 카드 초기화
-    setPage(1); // 페이지 초기화
-    fetchStudyCards(1, searchKeyword, order); // 검색 실행
+    setStudyCards([]);
+    setPage(1);
+    fetchStudyCards(1, searchKeyword, order);
   };
 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
-      handleSearchClick(); // 엔터 키를 누르면 검색 실행
+      handleSearchClick();
     }
   };
 

@@ -177,7 +177,7 @@ const CreateStudy = () => {
           <span className="error">{validateConfirmPassword() || ''}</span>
         </div>
       </div>
-      <button type="button" onClick={handleSubmit} disabled={!isFormValid}>
+      <button type="button" onClick={handleSubmit} disabled={!isFormValid} className="create-btn">
         만들기
       </button>
     </form>
