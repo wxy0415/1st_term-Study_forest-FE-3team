@@ -65,7 +65,8 @@ export function Modal({ studyName, isOpen, onClose, modalType }) {
   }
 
   function afterGotoConcentrationModalPass() {
-    navigate("/concentration");
+    const path = `/study/${studyId}/todaysFocus`;
+    navigate(path);
   }
 
   const initModal = () => {

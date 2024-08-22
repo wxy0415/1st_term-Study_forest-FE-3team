@@ -41,6 +41,25 @@ const patchHabit = async (habitId, surveyData) => {
   return res.data;
 };
 
+// 이율리
+export async function getPoint(id) {
+  try {
+    const res = await instance.get(`/study/${id}`);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function updatePoint(id, data) {
+  try {
+    const res = await instance.patch(`/study/${id}`, data);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export {
   gethabitList,
   postSuccess,

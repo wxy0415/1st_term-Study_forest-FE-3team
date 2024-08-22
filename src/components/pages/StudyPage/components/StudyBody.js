@@ -77,7 +77,7 @@ export function StudyBody({
   });
 
   return (
-    <main className="main">
+    <main className="study__main">
       <studyIdContext.Provider value={studyId}>
         <section className="study__section">
           <div className="study__content">

@@ -56,6 +56,10 @@ main {
   margin: 0 auto;
 }
 
+body {
+  background-color: var(--isabelline);
+}
+
 .font150 {
   font-size: 15rem;
   line-height: 1.19333em;
